@@ -1,6 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link,useNavigate } from 'react-router-dom'
+import { useState ,useEffect} from 'react'
+import  axios from 'axios';
+import { UserDataContext } from '../context/Usercontext';
+import { useContext } from 'react';
+
+
+
 
 
 function UserSignup() {
@@ -9,22 +15,34 @@ function UserSignup() {
   const [userData, setUserData] = useState({})
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')  
-  const handleLogin = (e) => {  
-    e.preventDefault();
-    console.log("User signed up with email:", email);
+  const navigate= useNavigate();
+  const {user,setUser} = useContext(UserDataContext);
+  const handleLogin = async (e) => {  
+    e.preventDefault();    
+    const newUser={
+      fullname: {
+        firstname: FirstName,
+        lastname: LastName  
+      } ,
+      email: email,
+      password: password
+    };
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);
+    if (response.status === 200) {
+      const data = response.data;
+      setUser(data.user)
+      
+     localStorage.setItem('token', data.token);
+
+      navigate('/home') 
+    }
+      
+    
     setEmail('');       
     setPassword('');
     setFirstName('');
     setLastName('');
-    setUserData({
-      fullName: {
-        FirstName: FirstName,
-        LastName: LastName  
-      } ,
-      email: email,
-      password: password
-    });
-    console.log("User Data:", userData);
+    
   }
  
   return (
@@ -74,7 +92,7 @@ function UserSignup() {
          required 
          />
         <button className='bg-[#111]  text-white font-bold mb-3 rounded px-4 py-2  w-full text-lg placeholder:text-base'
- type="Login">SignUp</button>
+ type="Login">Create account</button>
      </form>
          <p className='text-center'>Already have a account? <Link className='text-blue-600' to={"/user-login"}>Login here</Link></p>
 
