@@ -1,6 +1,6 @@
 import React from 'react'
 
-function LocationSearchPanel() {
+function LocationSearchPanel({ setVechilePanel, setPanel}) {
     // This component is used to display a list of locations
       const locations = [
         "234B, near bank colony cambridge school,Buxar Bihar",
@@ -12,7 +12,10 @@ function LocationSearchPanel() {
     <div>
         {locations.map(function(element){
             return (
-                <div key={Math.random()} className='flex justify-start my-2 items-center border-2 p-3 rounded-xl border-gray-100 active:border-black gap-2'>
+                <div onClick={()=>{
+                  setVechilePanel(true);
+                  setPanel(false);
+                }} key={Math.random()} className='flex justify-start my-2 items-center border-2 p-3 rounded-xl border-gray-100 active:border-black gap-2'>
                 <h2 className='bg-white p-2 text-3xl rounded-full flex items-center justify-center'><i className="ri-map-pin-user-fill "></i></h2>
                 <h4 className='font-medium'>{element}</h4>
                 </div>

@@ -5,13 +5,25 @@ import  {useGSAP} from '@gsap/react';
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css';
 import LocationSearchPanel from '../components/LocationSearchPanel';
-
+import VehiclePanel from '../components/VehiclePanel';
+import ConfirmRide from '../components/ConfirmRide';
+import LookingForDriver from '../components/LookingForDriver';
+import WaitingForDriver from '../components/WaitingForDriver';
 function Home() {
   const [pickup, setPickup] = useState("");
   const [destination, setDestination] = useState("");
   const [panel, setPanel] = useState(false);
    const panelRef =useRef(null);
    const panelCloseRef=useRef(null);
+   const vechileFoundRef=useRef(null)
+   const ConfirmRidePanelref = useRef(null);
+    const vechilePanelref=useRef(null);
+    const WaitingForDriverRef=useRef(null)
+   const [vechilePanel, setVechilePanel] = useState(false);
+    const [ConfirmRidePanel, setConfirmRidePanel] = useState(false);
+    const [vechileFound, setVechileFound] = useState(false);
+    const [watingForDriver, setwatingForDriver] = useState(false);
+
   useGSAP(
    function () {
       if(panel) {
@@ -47,6 +59,85 @@ function Home() {
   }, [panel]
     
   );
+  useGSAP(
+    function () {
+      if(vechilePanel) {
+        gsap.to(vechilePanelref.current, {
+         transform: "translateY(0)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 1,   
+        })
+      }else {  
+        gsap.to(vechilePanelref.current, {
+          transform: "translateY(100%)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 0,
+        }); 
+      }
+    }, [vechilePanel]
+  );  
+    useGSAP(
+    function () {
+      if(ConfirmRidePanel) {
+        gsap.to(ConfirmRidePanelref.current, {
+         transform: "translateY(0)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 1,   
+        })
+      }else {  
+        gsap.to(ConfirmRidePanelref.current, {
+          transform: "translateY(100%)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 0,
+        }); 
+      }
+    }, [ConfirmRidePanel]
+  );  
+    useGSAP(
+    function () {
+      if(vechileFound) {
+        gsap.to(vechileFoundRef.current, {
+         transform: "translateY(0)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 1,   
+        })
+      }else {  
+        gsap.to(vechileFoundRef.current, {
+          transform: "translateY(100%)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 0,
+        }); 
+      }
+    }, [vechileFound]
+  ); 
+    useGSAP(
+    function () {
+      if(watingForDriver) {
+        gsap.to(WaitingForDriverRef.current, {
+         transform: "translateY(0)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 1,   
+        })
+      }else {  
+        gsap.to(WaitingForDriverRef.current, {
+          transform: "translateY(100%)",
+          duration: 0.5,
+          ease: "power3.inOut",
+          opacity: 0,
+        }); 
+      }
+    }, [watingForDriver]
+  ); 
+
+
+      
   const SumbitHandler = (e) => {
     e.preventDefault();
 
@@ -58,7 +149,7 @@ function Home() {
         src="https://imgs.search.brave.com/z3WiIOauTbGDJBvlN9ZoxU6nohyibvEsMM-wW-etxes/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjAv/MDUvVWJlci1Mb2dv/LTIwMTYtMjAxOC03/MDB4Mzk0LnBuZw"
         alt="Uber Logo"
       />
-      <div className='h-screen w-screen'>
+      <div  className='h-screen w-screen'>
        {/* image for temporary use */}
         <img
           className="h-full w-full object-cover"
@@ -99,51 +190,25 @@ function Home() {
           </form>
           </div>
           <div ref={panelRef} className='h-[0] opacity-0 bg-white '>
-               <LocationSearchPanel />
+               <LocationSearchPanel  setPanel={setPanel}  setVechilePanel={setVechilePanel}/>
           </div>
    
       </div>
-      <div className='fixed w-full z-20 bottom-0 translate-y-full bg-white px-3 py-8'>
-        <h3 className='text-xl font-semibold mb-5'>Select a ride</h3>
-      <div className="flex w-full items-center justify-between p-3 mb-2 ml-1 rounded-2xl border-2 border-transparent active:border-black">          
-        <img className="h-12" src="https://i.postimg.cc/NfxQfbmn/Comfort-Taxi.jpg" alt="img" />
-           
-            <div className='w-1/2'>
-              <h4 className='text-base font-medium'>UberGo <span><i className="ri-user-fill"></i>4</span></h4>
-              <h5 className='text-gray-500 text-sm font-medium'>2 mins away</h5>
-              <p className='text-xs font-normal '>Affordable, compact ride</p>
-            </div>
-            <h2>
-              <span className='text-lg font-semibold'>₹100.69</span>
-              
-            </h2>
-      </div>
-       <div className="flex w-full items-center justify-between p-3 mb-2 ml-1 rounded-2xl border-2 border-transparent active:border-black">               
-        <img className="h-12" src="https://thumbs.dreamstime.com/b/fat-man-motorcycle-go-to-work-online-transportation-cartoon-illustration-vector-fat-man-motorcycle-go-to-work-169391691.jpg" alt="img" />
-           
-            <div className='w-1/2'>
-              <h4 className='text-base font-medium'>MoterBike <span><i className="ri-user-fill"></i>1</span></h4>
-              <h5 className='text-gray-500 text-sm font-medium'>5 mins away</h5>
-              <p className='text-xs font-normal '>Affordable, motorcycle ride</p>
-            </div>
-            <h2>
-              <span className='text-lg font-semibold'>₹75.00</span>
-              
-            </h2>
-      </div>
-      <div className="flex w-full items-center justify-between p-3 mb-2 ml-1  rounded-2xl border-2 border-transparent active:border-black">               
-        <img className="h-12" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWYMWz7h6PQVgBpQkU8n3ZZhGHR98zav5iZQ00pt38RaiCFTrxg-YJuh0z1ncOyBSO7d4&usqp=CAU" alt="img" />
-            <div className='w-1/2'>
-              <h4 className='text-base font-medium'>UberAuto  <span><i className="ri-user-fill"></i>2</span></h4>
-              <h5 className='text-gray-500 text-sm font-medium'>7 mins away</h5>
-              <p className='text-xs font-normal '>Affordable, Auto ride</p>
-            </div>
-            <h2>
-              <span className='text-lg font-semibold'>₹90.50</span>
-              
-            </h2>
-      </div>
-        </div>
+      <div ref={vechilePanelref} className='fixed w-full z-20 bottom-0 translate-y-full bg-white px-3 py-9 pt-12'>
+        <VehiclePanel setVechilePanel={setVechilePanel} setConfirmRidePanel={setConfirmRidePanel}/>
+      </div> 
+         <div ref={ConfirmRidePanelref} className='fixed w-full z-20 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
+        <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} setVechileFound={setVechileFound}/>
+      </div> 
+      <div  ref={vechileFoundRef} className='fixed w-full z-20 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
+           <LookingForDriver setVechileFound={setVechileFound}/>
+      </div> 
+       <div  ref={WaitingForDriverRef} className='fixed w-full z-20 bottom-0   bg-white px-3 py-6 pt-12'>
+           <WaitingForDriver setwatingForDriver={setwatingForDriver}/>
+      </div> 
+      
+      
+      
     </div>
   )
 }
