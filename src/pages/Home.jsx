@@ -153,7 +153,7 @@ function Home() {
        {/* image for temporary use */}
         <img
           className="h-full w-full object-cover"
-          src="https://t3.ftcdn.net/jpg/07/28/30/26/240_F_728302620_Xddnf5Cl0K1ACZurd6yByUzHiHMMIoe6.jpg"
+          src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif"
           alt="Home Background"  />
       </div>
       <div className=' flex flex-col justify-end absolute h-screen top-0 w-full '>

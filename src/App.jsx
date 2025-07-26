@@ -12,13 +12,18 @@ import Home from './pages/Home';
 import UserLogout from './pages/UserLogout';
 import CaptainHome from './pages/CaptainHome';
 import CaptainProtectedWrarapper from './pages/CaptainProtectedWrarapper';
+import Riding from './pages/Riding';
+import CaptainRiding from './pages/CaptainRiding';
 function App() {
-  
+  //https://miro.medium.com/v2/resize:fit:14
   return (
     <>
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/user-signup" element={<UserSignup />} />
+        <Route path="/riding" element={<Riding />} />
+          <Route path="/captain-riding" element={<CaptainRiding />} />
+
         <Route path="/user-login" element={<UserLogin />} />
         <Route path="/captain-signup" element={<CaptainSignup />} />
         <Route path="/captain-login" element={<CaptainLogin />} />
